@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sam Tech</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* تنظيم الخطوط والألوان */
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(135deg, #87ceeb, #f0f8ff);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100vh;
+      color: #333;
+    }
+
+    header {
+      background: #007bff;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 1.5rem;
+      border-bottom: 2px solid #0056b3;
+    }
+
+    .main-container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+      margin: auto;
+      max-width: 600px;
+    }
+
+    .main-container:hover {
+      transform: scale(1.05);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    button {
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      background: #28a745;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      backdrop-filter: blur(5px);
+    }
+
+    button:hover {
+      background: #218838;
+    }
+
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9rem;
+      border-top: 2px solid #555;
+    }
+
+    footer a {
+      color: #28a745;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* إشعارات */
+    #toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #28a745;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: none;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+  <!-- رأس الصفحة -->
+  <header>Sam Tech</header>
+
+  <!-- محتوى الصفحة -->
+  <div class="main-container">
+    <h1><i class="fas fa-user-friends"></i> مرحبًا بك في تطبيقنا!</h1>
+    <p>اضغط على الزر أدناه للانتقال إلى محول جهات الاتصال.</p>
+    <button onclick="checkPassword()"><i class="fas fa-sign-in-alt"></i> ابدأ الآن</button>
+  </div>
+
+  <!-- إشعارات -->
+  <div id="toast">تمت العملية بنجاح!</div>
+
+  <!-- ذيل الصفحة -->
+  <footer>
+    تصميم / م.عبدالله الرجوي<br>
+    تـ / <a href="tel:772237880">772237880</a><br>
+    جميع الحقوق محفوظة &copy; 2025
+  </footer>
+
+  <script>
+    // التحقق من كلمة المرور (تشفير باستخدام SHA-256)
+    async function hashPassword(password) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(password);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+      return Array.from(new Uint8Array(hashBuffer))
+        .map(byte => byte.toString(16).padStart(2, '0'))
+        .join('');
+    }
+
+    async function checkPassword() {
+      const password = prompt("يرجى إدخال كلمة المرور:");
+      const hashedPassword = await hashPassword(password);
+
+      if (hashedPassword === "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855") { // كلمة المرور هي "302024"
+        showToast("تم تسجيل الدخول بنجاح!");
+        setTimeout(() => {
+          window.location.href = 'contact-converter.html';
+        }, 1000);
+      } else {
+        alert("كلمة المرور غير صحيحة. حاول مرة أخرى.");
+      }
+    }
+
+    // إشعارات
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
