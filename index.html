@@ -6,32 +6,84 @@
     <title>استيراد جهات الاتصال</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; direction: rtl; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
-        th { background-color: #f4f4f4; }
-        input, button { margin: 10px; padding: 8px; }
-        #stats { margin-top: 10px; font-weight: bold; }
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            direction: rtl;
+            background: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #007bff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #stats {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #333;
+        }
     </style>
 </head>
 <body>
-    <h2>استيراد جهات الاتصال من ملف</h2>
-    <input type="file" id="fileInput" accept=".xlsx,.csv">
-    <button onclick="exportToVCF()">تصدير إلى VCF</button>
-    <input type="text" id="searchBox" placeholder="بحث عن اسم أو رقم" onkeyup="searchContacts()">
-    <p id="stats">عدد الأرقام المستوردة: 0</p>
-    <table id="contactsTable">
-        <thead>
-            <tr>
-                <th>الاسم</th>
-                <th>رقم الهاتف</th>
-                <th>رقم هاتف المنزل</th>
-                <th>العنوان</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-
+    <div class="container">
+        <h2>استيراد جهات الاتصال من ملف</h2>
+        <input type="file" id="fileInput" accept=".xlsx,.csv">
+        <button onclick="exportToVCF()">تصدير إلى VCF</button>
+        <input type="text" id="searchBox" placeholder="بحث عن اسم أو رقم" onkeyup="searchContacts()">
+        <p id="stats">عدد الأرقام المستوردة: 0</p>
+        <table id="contactsTable">
+            <thead>
+                <tr>
+                    <th>الاسم</th>
+                    <th>رقم الهاتف</th>
+                    <th>رقم هاتف المنزل</th>
+                    <th>العنوان</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
     <script>
         let contacts = [];
         
