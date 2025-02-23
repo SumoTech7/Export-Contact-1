@@ -129,7 +129,7 @@
 
   <script>
     // التحقق من كلمة المرور (تشفير باستخدام SHA-256)
-    async function hashPassword(302024) {
+    async function hashPassword(password) {
       const encoder = new TextEncoder();
       const data = encoder.encode(password);
       const hashBuffer = await crypto.subtle.digest('SHA-256', data);
@@ -142,7 +142,7 @@
       const password = prompt("يرجى إدخال كلمة المرور:");
       const hashedPassword = await hashPassword(password);
 
-      if (hashedPassword === "302024") { // كلمة المرور هي "302024"
+      if (hashedPassword === "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855") { // كلمة المرور الجديدة
         showToast("تم تسجيل الدخول بنجاح!");
         setTimeout(() => {
           window.location.href = 'contact-converter.html';
